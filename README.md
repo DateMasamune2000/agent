@@ -8,13 +8,16 @@ solve relatively complex tasks autonomously
 
 Run the below command
 
-```sh
-uv run main.py <prompt> [--verbose]
 ```
+uv run main.py <prompt> [--verbose] [--iterations NUMBER]
+```
+
+## Options
 
 - `--verbose` explicitly prints out the LLM's "thoughts", and also
 prints the number of tokens used in the exchange.
-- The agent loop runs a maximum of 20 times
+- `--iterations NUMBER` sets the maximum number of iterations in the agent loop to
+`NUMBER`
 
 ## Demos
 
@@ -50,7 +53,7 @@ I've successfully annotated `hello.py` and added a `README.md` file to your proj
 
 ## Planned features
 
-- [ ] Don't hard-code the working directory
+- [X] Don't hard-code the working directory
 - [ ] User-specified number of iterations
 - [ ] Access to additional tools:
   - [ ] Recursive regex search (via `ripgrep`)

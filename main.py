@@ -16,12 +16,13 @@ def main():
 	parser = argparse.ArgumentParser(description="Chatbot")
 	parser.add_argument("user_prompt", type=str, help="User prompt")
 	parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
+	parser.add_argument("--iterations", type=int, help="Number of iterations")
 	args = parser.parse_args()
 
 	# Initialize messages
 	messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
 
-	for _ in range(20):
+	for _ in range(args.iterations):
 		# Generate content
 		response = generate_content(client, args, messages, available_functions)
 		if response.usage_metadata == None:
@@ -61,7 +62,7 @@ def main():
 			print(f"Prompt tokens: {ptk}")
 			print(f"Response tokens: {rtk}")
 
-	raise Exception("bro what are you doing that needs 20 iterations from a bot to get right")
+	raise Exception("oops ran out of iterations")
 
 if __name__ == "__main__":
     main()
