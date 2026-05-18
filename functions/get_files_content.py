@@ -19,22 +19,22 @@ schema_get_files_content = types.FunctionDeclaration(
 )
 
 def get_file_content(working_directory, file_path):
-	print(f'file_path: {file_path}')
-	cwd = os.path.abspath(working_directory)
-	target = os.path.normpath(os.path.join(cwd, file_path))
+    print(f'file_path: {file_path}')
+    cwd = os.path.abspath(working_directory)
+    target = os.path.normpath(os.path.join(cwd, file_path))
 
-	if os.path.commonpath([cwd, target]) != cwd:
-		return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
+    if os.path.commonpath([cwd, target]) != cwd:
+        return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
 
-	try:
-		with open(target) as f:
-			content = f.read(MAX_CHARS)
-			if f.read(1):
-				content += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]'
-			return content
-	except (FileNotFoundError, IsADirectoryError) as e:
-		return f'Error: File not found or is not a regular file: "{file_path}"'
-	except Exception as e:
-		return f'Error: {e}'
+    try:
+        with open(target) as f:
+            content = f.read(MAX_CHARS)
+            if f.read(1):
+                content += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]'
+            return content
+    except (FileNotFoundError, IsADirectoryError) as e:
+        return f'Error: File not found or is not a regular file: "{file_path}"'
+    except Exception as e:
+        return f'Error: {e}'
 
 

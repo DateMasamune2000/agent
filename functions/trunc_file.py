@@ -2,26 +2,26 @@ from google.genai import types
 
 import os
 
-schema_write_file = types.FunctionDeclaration(
-    name="write_file",
-    description="Writes to a file given the path relative to the working directory. Overwrites content if file exists.",
+schema_trunc_file = types.FunctionDeclaration(
+    name="trunc_file",
+    description="Truncates file to a specified size equal to or below its current size",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="File path to write to, relative to the working directory. Mandatory argument",
+                description="File path to truncate, relative to the working directory. Mandatory argument",
             ),
 
-            "content": types.Schema(
-                type=types.Type.STRING,
-                description="Content to write to the file. Mandatory argument.",
+            "size": types.Schema(
+                type=types.Type.INTEGER,
+                description="New size of the file. Mandatory argument.",
             ),
         },
     ),
 )
 
-def write_file(working_directory, file_path, content):
+def trunc_file(working_directory, file_path, size):
     cwd = os.path.abspath(working_directory)
     target = os.path.normpath(os.path.join(cwd, file_path))
 
@@ -34,8 +34,8 @@ def write_file(working_directory, file_path, content):
     os.makedirs("/".join(target.split("/")[:-1]), exist_ok=True)
 
     try:
-        with open(target, "w") as f:
-            f.write(content)
-        return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+        with open(target, "a") as f:
+            f.truncate(size)
+        return f'Successfully truncated "{file_path}" to {size} bytes.'
     except Exception as e:
         return f'Error: {e}'
