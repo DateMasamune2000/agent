@@ -26,7 +26,7 @@ def write_file(working_directory, file_path, content):
 	target = os.path.normpath(os.path.join(cwd, file_path))
 
 	if os.path.commonpath([cwd, target]) != cwd:
-		return f'Error: Cannot write to "{file}" as it is outside the permitted working directory'
+		return f'Error: Cannot write to "{target}" as it is outside the permitted working directory'
 
 	if os.path.isdir(target):
 		return f'Error: Cannot write to "{target}" as it is outside the permitted working directory'

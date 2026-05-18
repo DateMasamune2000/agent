@@ -16,7 +16,7 @@ def main():
 	parser = argparse.ArgumentParser(description="Chatbot")
 	parser.add_argument("user_prompt", type=str, help="User prompt")
 	parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
-	parser.add_argument("--iterations", type=int, help="Number of iterations")
+	parser.add_argument("--iterations", type=int, help="Number of iterations", default=10)
 	args = parser.parse_args()
 
 	# Initialize messages
